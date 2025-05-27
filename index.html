@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceTracker Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>FinanceTracker Pro</h1>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#dashboard" class="nav-link active" data-page="dashboard">
+                    <i class="fas fa-chart-pie"></i> Dashboard
+                </a></li>
+                <div class="left">
+        <!-- Content for the left side -->
+     
+                <li><a href="#income" class="nav-link" data-page="income">
+                    <i class="fas fa-arrow-up"></i> Income
+                </a></li>
+                <li><a href="#expenses" class="nav-link" data-page="expenses">
+                    <i class="fas fa-arrow-down"></i> Expenses
+                </a></li>
+                <li><a href="#budget" class="nav-link" data-page="budget">
+                    <i class="fas fa-calculator"></i> Budget
+                </a></li>
+                <li><a href="#savings" class="nav-link" data-page="savings">
+                    <i class="fas fa-piggy-bank"></i> Savings Goals
+                </a></li>
+                <li><a href="#transactions" class="nav-link" data-page="transactions">
+                    <i class="fas fa-list"></i> Transactions
+                </a></li>
+                <li><a href="#reports" class="nav-link" data-page="reports">
+                    <i class="fas fa-chart-bar"></i> Reports
+                </a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <h2 id="page-title">Dashboard</h2>
+            <div class="header-actions">
+                <!-- Notifications -->
+                <div class="notification-container">
+                    <button class="notification-btn" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">2</span>
+                    </button>
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notification-header">
+                            <h3>Notifications</h3>
+                            <span class="badge">2 new</span>
+                        </div>
+                        <div class="notification-list">
+                            <div class="notification-item unread">
+                                <div class="notification-content">
+                                    <h4>Budget Alert</h4>
+                                    <p>You've exceeded 90% of your Housing budget</p>
+                                    <span class="notification-time">2 mins ago</span>
+                                </div>
+                            </div>
+                            <div class="notification-item unread">
+                                <div class="notification-content">
+                                    <h4>Goal Progress</h4>
+                                    <p>Emergency Fund reached 60% of target</p>
+                                    <span class="notification-time">1 hour ago</span>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-content">
+                                    <h4>Monthly Report</h4>
+                                    <p>Your December financial report is ready</p>
+                                    <span class="notification-time">3 hours ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="notification-footer">
+                            <button class="btn-link">View All Notifications</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile -->
+                <div class="profile-container">
+                    <button class="profile-btn" id="profileBtn">
+                        <div class="profile-avatar">UE</div>
+                    </button>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="profile-header">
+                            <div class="profile-info">
+                                <div class="profile-avatar-large">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="profile-details">
+                                    <h3>User</h3>
+                                    <p>User@example.com</p>
+                                    <span class="badge-outline">Premium User</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-menu">
+                            <button class="profile-menu-item">
+                                <i class="fas fa-user"></i> Profile Settings
+                            </button>
+                            <button class="profile-menu-item">
+                                <i class="fas fa-bell"></i> Notification Preferences
+                            </button>
+                            <button class="profile-menu-item">
+                                <i class="fas fa-cog"></i> Account Settings
+                            </button>
+                        </div>
+                        <div class="profile-footer">
+                            <button class="btn-danger">Sign Out</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+ </div>
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page active">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-info">
+                                <h3>Total Balance</h3>
+                                <p class="stat-value">₹3,48,151</p>
+                            </div>
+                            <div class="stat-icon bg-blue">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                        </div>
+                        <div class="stat-change positive">
+                            <span>+12.5%</span>
+                            <small>from last month</small>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-info">
+                                <h3>Monthly Income</h3>
+                                <p class="stat-value">₹84,500</p>
+                            </div>
+                            <div class="stat-icon bg-green">
+                                <i class="fas fa-arrow-up"></i>
+                            </div>
+                        </div>
+                        <div class="stat-change positive">
+                            <span>+8.2%</span>
+                            <small>from last month</small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-info">
+                                <h3>Monthly Expenses</h3>
+                                <p class="stat-value">₹52,300</p>
+                            </div>
+                            <div class="stat-icon bg-red">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                        </div>
+                        <div class="stat-change negative">
+                            <span>+3.1%</span>
+                            <small>from last month</small>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-info">
+                                <h3>Savings Rate</h3>
+                                <p class="stat-value">38.1%</p>
+                            </div>
+                            <div class="stat-icon bg-yellow">
+                                <i class="fas fa-piggy-bank"></i>
+                            </div>
+                        </div>
+                        <div class="stat-change positive">
+                            <span>+2.4%</span>
+                            <small>from last month</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="charts-row">
+                    <div class="chart-card large">
+                        <div class="card-header">
+                            <h3>Spending Overview</h3>
+                            <select class="select-dropdown">
+                                <option>Last 6 months</option>
+                                <option>Last year</option>
+                            </select>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="spendingChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Category Breakdown</h3>
+                        </div>
+                        <div class="category-list">
+                            <div class="category-item">
+                                <div class="category-info">
+                                    <div class="category-dot bg-blue"></div>
+                                    <span>Housing</span>
+                                </div>
+                                <div class="category-amount">
+                                    <div class="amount">₹18,000</div>
+                                    <div class="percentage">34.4%</div>
+                                </div>
+                            </div>
+                            <div class="category-item">
+                                <div class="category-info">
+                                    <div class="category-dot bg-green"></div>
+                                    <span>Food</span>
+                                </div>
+                                <div class="category-amount">
+                                    <div class="amount">₹8,750</div>
+                                    <div class="percentage">16.7%</div>
+                                </div>
+                            </div>
+                            <div class="category-item">
+                                <div class="category-info">
+                                    <div class="category-dot bg-yellow"></div>
+                                    <span>Transportation</span>
+                                </div>
+                                <div class="category-amount">
+                                    <div class="amount">₹6,500</div>
+                                    <div class="percentage">12.4%</div>
+                                </div>
+                            </div>
+                            <div class="category-item">
+                                <div class="category-info">
+                                    <div class="category-dot bg-purple"></div>
+                                    <span>Entertainment</span>
+                                </div>
+                                <div class="category-amount">
+                                    <div class="amount">₹1,599</div>
+                                    <div class="percentage">3.1%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Transactions -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Recent Transactions</h3>
+                        <a href="#transactions" class="btn-link">View all</a>
+                    </div>
+                    <div class="transaction-list">
+                        <div class="transaction-item">
+                            <div class="transaction-icon bg-green">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <div class="transaction-desc">Monthly Salary</div>
+                                <div class="transaction-date">01/04/2025</div>
+                            </div>
+                            <div class="transaction-amount positive">
+                                +₹42,000
+                            </div>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="transaction-icon bg-red">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <div class="transaction-desc">Rent Payment</div>
+                                <div class="transaction-date">30/05/2025</div>
+                            </div>
+                            <div class="transaction-amount negative">
+                                -₹18,000
+                            </div>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="transaction-icon bg-blue">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <div class="transaction-desc">Grocery Store - Big Bazaar</div>
+                                <div class="transaction-date">03/04/2025</div>
+                            </div>
+                            <div class="transaction-amount negative">
+                                -₹8,750
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Income Page -->
+            <div id="income-page" class="page">
+                <div class="page-header">
+                    <h2>Income Tracking</h2>
+                    <button class="btn-primary">
+                        <i class="fas fa-plus"></i> Add Income
+                    </button>
+                </div>
+                <div class="income-content">
+                    <div class="chart-card large">
+                        <div class="card-header">
+                            <h3>Income Trends</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="incomeChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="income-summary">
+                        <div class="summary-card">
+                            <h4>Income Sources</h4>
+                            <div class="source-list">
+                                <div class="source-item">
+                                    <div class="source-icon bg-blue">
+                                        <i class="fas fa-building"></i>
+                                    </div>
+                                    <span>Salary</span>
+                                    <strong>₹42,000</strong>
+                                </div>
+                                <div class="source-item">
+                                    <div class="source-icon bg-green">
+                                        <i class="fas fa-laptop"></i>
+                                    </div>
+                                    <span>Freelance</span>
+                                    <strong>₹12,500</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <h4>Quick Stats</h4>
+                            <div class="stats-list">
+                                <div class="stat-row">
+                                    <span>This Month</span>
+                                    <strong>₹54,500</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Average Monthly</span>
+                                    <strong>₹51,200</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>YTD Total</span>
+                                    <strong>₹6,14,400</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expenses Page -->
+            <div id="expenses-page" class="page">
+                <div class="page-header">
+                    <h2>Expense Management</h2>
+                    <button class="btn-primary">
+                        <i class="fas fa-plus"></i> Add Expense
+                    </button>
+                </div>
+                <div class="expenses-content">
+                    <div class="chart-card large">
+                        <div class="card-header">
+                            <h3>Expense Trends</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="expenseChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="expense-summary">
+                        <div class="summary-card">
+                            <h4>Top Categories</h4>
+                            <div class="category-list">
+                                <div class="category-item">
+                                    <div class="category-info">
+                                        <div class="category-dot bg-red"></div>
+                                        <span>Housing</span>
+                                        <small>34.4% of budget</small>
+                                    </div>
+                                    <strong>₹18,000</strong>
+                                </div>
+                                <div class="category-item">
+                                    <div class="category-info">
+                                        <div class="category-dot bg-green"></div>
+                                        <span>Food</span>
+                                        <small>16.7% of budget</small>
+                                    </div>
+                                    <strong>₹8,750</strong>
+                                </div>
+                                <div class="category-item">
+                                    <div class="category-info">
+                                        <div class="category-dot bg-yellow"></div>
+                                        <span>Transportation</span>
+                                        <small>12.4% of budget</small>
+                                    </div>
+                                    <strong>₹6,500</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <h4>Monthly Summary</h4>
+                            <div class="stats-list">
+                                <div class="stat-row">
+                                    <span>Total Expenses</span>
+                                    <strong>₹52,300</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Daily Average</span>
+                                    <strong>₹1,743</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>vs Last Month</span>
+                                    <strong class="negative">+3.1%</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Budget Page -->
+            <div id="budget-page" class="page">
+                <div class="page-header">
+                    <h2>Budget Planning</h2>
+                    <button class="btn-primary">
+                        <i class="fas fa-edit"></i> Edit Budget
+                    </button>
+                </div>
+                <div class="budget-content">
+                    <div class="budget-overview">
+                        <div class="budget-item">
+                            <div class="budget-header">
+                                <span>Housing</span>
+                                <span class="budget-amounts">₹18,000 / ₹22,000</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 82%"></div>
+                            </div>
+                            <div class="budget-footer">
+                                <span>82% used</span>
+                                <span class="remaining">₹4,000 remaining</span>
+                            </div>
+                        </div>
+                        <div class="budget-item">
+                            <div class="budget-header">
+                                <span>Food</span>
+                                <span class="budget-amounts">₹8,750 / ₹8,000</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill over-budget" style="width: 100%"></div>
+                            </div>
+                            <div class="budget-footer">
+                                <span>109% used</span>
+                                <span class="over">₹750 over budget</span>
+                            </div>
+                        </div>
+                        <div class="budget-item">
+                            <div class="budget-header">
+                                <span>Transportation</span>
+                                <span class="budget-amounts">₹6,500 / ₹7,000</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 93%"></div>
+                            </div>
+                            <div class="budget-footer">
+                                <span>93% used</span>
+                                <span class="remaining warning">₹500 remaining</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="budget-summary">
+                        <div class="summary-card">
+                            <h4>Budget Summary</h4>
+                            <div class="stats-list">
+                                <div class="stat-row">
+                                    <span>Total Budget</span>
+                                    <strong>₹37,000</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Total Spent</span>
+                                    <strong>₹33,250</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Remaining</span>
+                                    <strong class="positive">₹3,750</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Budget Utilization</span>
+                                    <strong>89.9%</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <h4>Alerts</h4>
+                            <div class="alert-list">
+                                <div class="alert-item over-budget">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <div>
+                                        <strong>Over Budget</strong>
+                                        <p>Food is ₹750 over budget</p>
+                                    </div>
+                                </div>
+                                <div class="alert-item warning">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <div>
+                                        <strong>Warning</strong>
+                                        <p>Transportation budget 93% used</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Savings Page -->
+            <div id="savings-page" class="page">
+                <div class="page-header">
+                    <h2>Savings Goals</h2>
+                    <button class="btn-primary">
+                        <i class="fas fa-plus"></i> New Goal
+                    </button>
+                </div>
+                <div class="savings-content">
+                    <div class="savings-goals">
+                        <div class="goal-item">
+                            <div class="goal-header">
+                                <div class="goal-icon bg-blue">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <div class="goal-info">
+                                    <h4>House Down Payment</h4>
+                                    <p>Target: Dec 2024</p>
+                                </div>
+                                <div class="goal-amount">
+                                    <div class="amount">₹45,00,000 / ₹60,00,000</div>
+                                    <div class="percentage">75% complete</div>
+                                </div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
+                            </div>
+                            <div class="goal-footer">
+                                <span>₹15,00,000 remaining</span>
+                                <span>₹12,500/month needed</span>
+                            </div>
+                        </div>
+                        <div class="goal-item">
+                            <div class="goal-header">
+                                <div class="goal-icon bg-green">
+                                    <i class="fas fa-umbrella-beach"></i>
+                                </div>
+                                <div class="goal-info">
+                                    <h4>Vacation Fund</h4>
+                                    <p>Target: Jun 2024</p>
+                                </div>
+                                <div class="goal-amount">
+                                    <div class="amount">₹3,20,000 / ₹5,00,000</div>
+                                    <div class="percentage">64% complete</div>
+                                </div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 64%"></div>
+                            </div>
+                            <div class="goal-footer">
+                                <span>₹1,80,000 remaining</span>
+                                <span>₹30,000/month needed</span>
+                            </div>
+                        </div>
+                        <div class="goal-item">
+                            <div class="goal-header">
+                                <div class="goal-icon bg-red">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="goal-info">
+                                    <h4>Emergency Fund</h4>
+                                    <p>Target: No deadline</p>
+                                </div>
+                                <div class="goal-amount">
+                                    <div class="amount">₹18,50,000 / ₹31,00,000</div>
+                                    <div class="percentage">60% complete</div>
+                                </div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%"></div>
+                            </div>
+                            <div class="goal-footer">
+                                <span>₹12,50,000 remaining</span>
+                                <span>₹10,417/month needed</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="savings-summary">
+                        <div class="summary-card">
+                            <h4>Savings Overview</h4>
+                            <div class="stats-list">
+                                <div class="stat-row">
+                                    <span>Total Saved</span>
+                                    <strong>₹66,70,000</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Monthly Savings</span>
+                                    <strong>₹20,500</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Savings Rate</span>
+                                    <strong class="positive">38.1%</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Next Milestone</span>
+                                    <strong>₹70,00,000</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <h4>Quick Actions</h4>
+                            <div class="action-list">
+                                <button class="action-item">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <span>Add to Savings</span>
+                                </button>
+                                <button class="action-item">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>View Projections</span>
+                                </button>
+                                <button class="action-item">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Auto-Save Settings</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transactions Page -->
+            <div id="transactions-page" class="page">
+                <div class="page-header">
+                    <h2>All Transactions</h2>
+                    <div class="page-actions">
+                        <select class="select-dropdown">
+                            <option>All Categories</option>
+                            <option>Housing</option>
+                            <option>Food</option>
+                            <option>Transportation</option>
+                        </select>
+                        <input type="text" placeholder="Search transactions..." class="search-input">
+                        <button class="btn-primary" id="exportTransactionsBtn">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                    </div>
+                </div>
+                <div class="transactions-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>03/04/2025</td>
+                                <td>Grocery Store - Big Bazaar</td>
+                                <td><span class="category-badge food">Food</span></td>
+                                <td class="amount negative">-₹8,750</td>
+                                <td>
+                                    <button class="btn-small">Edit</button>
+                                    <button class="btn-small danger">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>02/04/2025</td>
+                                <td>Gas Station - HP</td>
+                                <td><span class="category-badge transport">Transportation</span></td>
+                                <td class="amount negative">-₹6,500</td>
+                                <td>
+                                    <button class="btn-small">Edit</button>
+                                    <button class="btn-small danger">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>01/04/2025</td>
+                                <td>Monthly Salary</td>
+                                <td><span class="category-badge salary">Salary</span></td>
+                                <td class="amount positive">+₹42,000</td>
+                                <td>
+                                    <button class="btn-small">Edit</button>
+                                    <button class="btn-small danger">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>30/05/2025</td>
+                                <td>Rent Payment</td>
+                                <td><span class="category-badge housing">Housing</span></td>
+                                <td class="amount negative">-₹18,000</td>
+                                <td>
+                                    <button class="btn-small">Edit</button>
+                                    <button class="btn-small danger">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>28/05/2025</td>
+                                <td>Freelance Project</td>
+                                <td><span class="category-badge freelance">Freelance</span></td>
+                                <td class="amount positive">+₹12,500</td>
+                                <td>
+                                    <button class="btn-small">Edit</button>
+                                    <button class="btn-small danger">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Reports Page -->
+            <div id="reports-page" class="page">
+                <div class="page-header">
+                    <h2>Financial Reports</h2>
+                    <div class="page-actions">
+                        <button class="btn-primary" id="generateReportBtn">
+                            <i class="fas fa-chart-bar"></i> Generate Report
+                        </button>
+                        <button class="btn-primary" id="downloadReportBtn">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </button>
+                    </div>
+                </div>
+                <div class="reports-content">
+                    <div class="reports-grid">
+                        <div class="chart-card">
+                            <div class="card-header">
+                                <h3>Income vs Expenses</h3>
+                                <select class="select-dropdown">
+                                    <option>Last 12 months</option>
+                                    <option>Last 6 months</option>
+                                </select>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="incomeExpenseChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <div class="card-header">
+                                <h3>Expense Distribution</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="expenseDistributionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reports-summary">
+                        <div class="summary-card">
+                            <h4>Monthly Summary</h4>
+                            <div class="stats-list">
+                                <div class="stat-row">
+                                    <span>Total Income</span>
+                                    <strong class="positive">₹54,500</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Total Expenses</span>
+                                    <strong class="negative">₹33,250</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Net Savings</span>
+                                    <strong class="positive">₹21,250</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Savings Rate</span>
+                                    <strong>39.0%</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <h4>Top Spending Categories</h4>
+                            <div class="stats-list">
+                                <div class="stat-row">
+                                    <span>1. Housing</span>
+                                    <strong>₹18,000</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>2. Food</span>
+                                    <strong>₹8,750</strong>
+                                </div>
+                                <div class="stat-row">
+                                    <span>3. Transportation</span>
+                                    <strong>₹6,500</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <h4>Quick Reports</h4>
+                            <div class="report-list">
+                                <button class="report-item" data-report="monthly">
+                                    <div class="report-info">
+                                        <strong>Monthly Report</strong>
+                                        <small>December 2025</small>
+                                    </div>
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="report-item" data-report="quarterly">
+                                    <div class="report-info">
+                                        <strong>Quarterly Report</strong>
+                                        <small>Q4 2025</small>
+                                    </div>
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="report-item" data-report="annual">
+                                    <div class="report-info">
+                                        <strong>Annual Report</strong>
+                                        <small>2025</small>
+                                    </div>
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
